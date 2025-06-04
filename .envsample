@@ -1,0 +1,9 @@
+GCP_PROJECT=aisatad
+GCP_REGION=europe-west1
+
+# Cloud Storage
+BUCKET_NAME=aisatad
+
+# BigQuery
+BQ_REGION=EU
+BQ_DATASET=raw_data
