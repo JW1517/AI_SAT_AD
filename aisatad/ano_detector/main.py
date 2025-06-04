@@ -18,8 +18,8 @@ from aisatad.function_files.data import get_data_with_cache #clean_data, load_da
 # def preprocessing():
 #load data
 
-
-
+data_bucket_cache_path = Path(LOCAL_DATA_PATH).joinpath(f"{BQ_DATASET}.csv")
+df = get_data_with_cache(cache_path=data_bucket_cache_path)
 
 
 #def preprocess() -> None:
