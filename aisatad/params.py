@@ -7,13 +7,13 @@ GCP_PROJECT = os.environ.get("GCP_PROJECT")
 
 GCP_REGION = os.environ.get("GCP_REGION")
 
-BQ_REGION = os.environ.get("BQ_REGION")
+BUCKET_REGION = os.environ.get("BUCKET_REGION")
 BUCKET_NAME = os.environ.get("BUCKET_NAME")
-BQ_DATASET=os.environ.get("BQ_DATASET")
+BUCKET_DATASET=os.environ.get("BUCKET_DATASET")
 
 ##################  CONSTANTS  #####################
 
-LOCAL_DATA_PATH = os.path.join(os.path.expanduser('~'), "code", "JW1517", "AI_SAT_AD","raw_data")
+LOCAL_DATA_PATH = os.path.join(os.path.expanduser('~'), "code", "JW1517", "AI_SAT_AD")
 #LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), ".lewagon", "mlops", "training_outputs")
 
 # COLUMN_NAMES_RAW = ['fare_amount','pickup_datetime', 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'passenger_count']

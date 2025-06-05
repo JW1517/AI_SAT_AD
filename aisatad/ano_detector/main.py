@@ -25,11 +25,13 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 #load raw_data.csv
 
-data_bucket_cache_path = Path(LOCAL_DATA_PATH).joinpath(f"{BQ_DATASET}.csv")
+data_bucket_cache_path = Path(LOCAL_DATA_PATH).joinpath("raw_data", f"{BUCKET_DATASET}.csv")
 df = get_data_with_cache(cache_path=data_bucket_cache_path)
 
 # preprocess=> à remplacer par les vrais preprocess
-df_featurs = pd.read_csv("../../raw_data/feature_data.csv")
+path_csv = data_bucket_cache_path = Path(LOCAL_DATA_PATH).joinpath("raw_data", "feature_data.csv")
+print(path_csv)
+df_featurs = pd.read_csv(path_csv)
 X = df_featurs.iloc[:, -18:]
 y = df_featurs['anomaly']
 def preproc(df_featurs):
