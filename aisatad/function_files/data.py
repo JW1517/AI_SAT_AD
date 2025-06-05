@@ -43,6 +43,7 @@ def get_data_with_cache(
         print(f"✅ Fichier téléchargé dans {local_filename}")
 
 
-    df = pd.read_csv(cache_path)
+    df = pd.read_csv(cache_path, parse_dates=["timestamp"])
+
 
     return df
