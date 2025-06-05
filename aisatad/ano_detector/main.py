@@ -29,7 +29,7 @@ data_bucket_cache_path = Path(LOCAL_DATA_PATH).joinpath(f"{BQ_DATASET}.csv")
 df = get_data_with_cache(cache_path=data_bucket_cache_path)
 
 # preprocess=> à remplacer par les vrais preprocess
-df_featurs = pd.read_csv("/Users/juanborron/code/JW1517/AI_SAT_AD/raw_data/feature_data.csv")
+df_featurs = pd.read_csv("../../raw_data/feature_data.csv")
 X = df_featurs.iloc[:, -18:]
 y = df_featurs['anomaly']
 def preproc(df_featurs):
