@@ -5,5 +5,5 @@ GCP_REGION=europe-west1
 BUCKET_NAME=aisatad
 
 # BigQuery
-BQ_REGION=EU
-BQ_DATASET=raw_data
+BUCKET_REGION=EU
+BUCKET_DATASET=raw_data
