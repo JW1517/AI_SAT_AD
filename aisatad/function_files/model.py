@@ -29,6 +29,12 @@ from sklearn.metrics import (
 # calcul time
 import time
 
+#plot le ROC
+from aisatad.function_files.plot import plot_roc_curves_model_staking
+
+
+
+
 # def function of Arsene et Joss 0602
 
 def logistic_regression(X_train, X_test, y_train, y_test):
@@ -114,7 +120,7 @@ def xgboost_model(X_train, X_test, y_train, y_test):
 # Juan0603:  def model_stacking() qui compare tous les models de mardi(par Arsene et Joss), plus model_stacking
 # et return les scores of comparason dans un df_results_stacking
 
-def model_stacking(X_train, y_train, X_test,y_test):
+def model_stacking(X_train, X_test, y_train, y_test):
     """
     1. lister les models déjà fait gridsearch
     2. stacking les models
@@ -192,10 +198,12 @@ def model_stacking(X_train, y_train, X_test,y_test):
         recall = recall_score(y_test, y_pred)
         f1 = f1_score(y_test, y_pred)
         roc = roc_auc_score(y_test, y_pred)
-        #print les metrics
-        print(f" results for model {model_nm}:  [accuracy: {accuracy:.3f}, precision: {precision:.3f}, recall: {recall:.3f}, f1 : {f1:.3f} - roc : {roc:.3f}]")
         #calul time
         cal_time = time.time()- start_time
+
+
+        #print les metrics
+        print(f" results for model {model_nm}:  [accuracy: {accuracy:.3f}, precision: {precision:.3f}, recall: {recall:.3f}, f1 : {f1:.3f} - roc : {roc:.3f}, elapsed_time: {cal_time:.3f}]")
         # save results dans une list
         results.append({
             "model_nm": model_nm,
@@ -207,7 +215,12 @@ def model_stacking(X_train, y_train, X_test,y_test):
             "roc":roc,
             "elapsed_time": cal_time
             })
+
+
     #transformer en pd
     df_results_stacking = pd.DataFrame(results)
+
+    #plot le ROC
+    plot_roc_curves_model_staking(model_lists, X_test, y_test)
 
     return df_results_stacking
