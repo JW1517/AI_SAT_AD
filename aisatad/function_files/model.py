@@ -29,6 +29,8 @@ from sklearn.metrics import (
 import time
 
 
+from aisatad.function_files.plot import plot_roc_curves_model_staking
+
 
 
 # def function of Arsene et Joss 0602
@@ -212,7 +214,12 @@ def model_stacking(X_train, X_test, y_train, y_test):
             "roc":roc,
             "elapsed_time": cal_time
             })
+
+
     #transformer en pd
     df_results_stacking = pd.DataFrame(results)
+
+    #plot le ROC
+    plot_roc_curves_model_staking(model_lists, X_test, y_test)
 
     return df_results_stacking
