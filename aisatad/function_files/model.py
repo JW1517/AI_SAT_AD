@@ -9,6 +9,7 @@ from sklearn.preprocessing import StandardScaler
 
 # Models
 from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import LabelEncoder
 from sklearn.svm import SVC
 from sklearn.ensemble import (
     AdaBoostClassifier,
@@ -28,8 +29,9 @@ from sklearn.metrics import (
 # calcul time
 import time
 
-
+#plot le ROC
 from aisatad.function_files.plot import plot_roc_curves_model_staking
+
 
 
 
@@ -91,14 +93,14 @@ def ada_boost(X_train, X_test, y_train, y_test):
 
 def xgboost_model(X_train, X_test, y_train, y_test):
     model = XGBClassifier(
-        colsample_bytree=0.8,
-        eval_metric='logloss',
-        gamma=0.3,
-        learning_rate=0.2,
-        max_depth=5,
+        colsample_bytree=0.9720296698433066,
+        gamma=0.0788536227370118,
+        learning_rate=0.05594937721224293,
+        max_depth=9,
         min_child_weight=1,
-        n_estimators=50,
+        n_estimators=600,
         use_label_encoder=False,
+        eval_metric='auc',
         scale_pos_weight=(y_train.value_counts()[0] / y_train.value_counts()[1]),
         tree_method='hist'
     )
@@ -112,8 +114,7 @@ def xgboost_model(X_train, X_test, y_train, y_test):
     f1 = f1_score(y_test, y_pred)
     roc = roc_auc_score(y_test, y_pred)
 
-    return f"accuracy: {accuracy:.3f}, precision: {precision:.3f}, recall: {recall:.3f}, f1 : {f1:.3f} - roc : {roc:.3f}"
-
+    return f"accuracy: {accuracy:.3f}, precision: {precision:.3f}, recall: {recall:.3f}, f1: {f1:.3f}, roc: {roc:.3f}"
 
 
 # Juan0603:  def model_stacking() qui compare tous les models de mardi(par Arsene et Joss), plus model_stacking
