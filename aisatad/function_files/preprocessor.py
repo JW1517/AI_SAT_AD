@@ -3,6 +3,7 @@ from aisatad.params import *
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
+import joblib
 from sklearn.preprocessing import StandardScaler
 from scipy.stats import kurtosis, skew
 import scipy.signal as sig
@@ -154,4 +155,15 @@ def preprocess(df):
     X_train = pd.DataFrame(X_train_scaled, columns = X_train.columns)
     X_test = pd.DataFrame(X_test_scaled, columns = X_test.columns)
 
-    return X_train, X_test, y_train, y_test
+    return X_train, X_test, y_train, y_test, scaler
+
+
+def api_preprocess_pipeline(df, fitted_scaler):
+    dataset, _ = generate_dataset(df)
+
+    X = dataset.iloc[:, 5:]
+
+    X_scaled = fitted_scaler.transform(X)
+    X_scaled = pd.DataFrame(X_scaled, columns=X.columns)
+
+    return X_scaled
