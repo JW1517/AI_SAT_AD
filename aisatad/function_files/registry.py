@@ -87,6 +87,7 @@ def save_model(model: keras.Model = None) -> None:
 
     return None
 
+# load_model
 def load_model(stage="Production") -> keras.Model:
     """
     Return a saved model:
@@ -123,14 +124,25 @@ def load_model(stage="Production") -> keras.Model:
         print(Fore.BLUE + f"\nLoad latest model from GCS..." + Style.RESET_ALL)
 
         client = storage.Client()
-        blobs = list(client.get_bucket(BUCKET_NAME).list_blobs(prefix="model"))
+        blobs = list(client.get_bucket(BUCKET_NAME).list_blobs(prefix="models/"))
+        print(blobs)
 
         try:
             latest_blob = max(blobs, key=lambda x: x.updated)
-            latest_model_path_to_save = os.path.join(LOCAL_REGISTRY_PATH, latest_blob.name)
-            latest_blob.download_to_filename(latest_model_path_to_save)
+            print(latest_blob)
+            latest_model_path_to_save = os.path.join(LOCAL_REGISTRY_PATH,latest_blob.name)
+            print(latest_model_path_to_save)
+            #debuge
+            # with open(latest_model_path_to_save, "wb") as file:
+            #     pickle.dump(latest_blob.download_to_filename(file))
+            #  Créer les dossiers si n'exist pas
+            #os.makedirs(os.path.dirname(latest_model_path_to_save), exist_ok=True)
 
-            latest_model = keras.models.load_model(latest_model_path_to_save)
+
+            latest_blob.download_to_filename(latest_model_path_to_save)
+            print("ok")
+            latest_model = pickle.load(open(latest_model_path_to_save,"rb"))
+
 
             print("✅ Latest model downloaded from cloud storage")
 

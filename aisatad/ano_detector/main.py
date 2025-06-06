@@ -19,7 +19,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 
 #save model and results
-from aisatad.function_files.registry import save_results,save_model
+from aisatad.function_files.registry import save_results,save_model,load_model
 
 
 
@@ -36,7 +36,7 @@ print("✅ preprocess() done \n")
 
 
 # modeliser and score
-mdl_stacking, df_results_y_pred,df_results_metrics,df_results_stacking = model_stacking(X_train, X_test, y_train, y_test)
+df_results_model, df_results_y_pred,df_results_metrics,df_results_stacking = model_stacking(X_train, X_test, y_train, y_test)
 print(df_results_stacking)
 
 # save results and models
@@ -47,12 +47,13 @@ params = dict(
 )
 metrics = dict(df_results_metrics)
 
-
-# Save results on the hard drive using taxifare.ml_logic.registry
+# Save results on the hard drive using registry.py
 save_results(params=params, metrics=metrics)
 
 # Save model weight on the hard drive (and optionally on GCS too!)
-save_model(model=mdl_stacking)
+save_model(model=df_results_model.iloc[-1][0])
+
+model = load_model()
 
 
 # print("✅ train() done \n")
