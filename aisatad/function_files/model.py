@@ -202,8 +202,8 @@ def model_stacking(X_train, X_test, y_train, y_test):
         cal_time = time.time()- start_time
 
 
-        #print les metrics
-        print(f" results for model {model_nm}:  [accuracy: {accuracy:.3f}, precision: {precision:.3f}, recall: {recall:.3f}, f1 : {f1:.3f} - roc : {roc:.3f}, elapsed_time: {cal_time:.3f}]")
+        #print les metrics 
+        print(f" results for model {model_nm}:  [accuracy: {accuracy:.3f}, precision: {precision:.3f}, recall: {recall:.3f},f1 : {f1:.3f} - roc : {roc:.3f}, elapsed_time: {cal_time:.3f}]")
         # save results dans une list
         results.append({
             "model_nm": model_nm,
