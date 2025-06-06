@@ -138,14 +138,6 @@ def generate_dataset(source_df):
 
     return dataset, full_path
 
-
-def scale(X_train, X_test) :
-    scaler = StandardScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-    X_test_scaled  = scaler.transform(X_test)
-
-    return X_train_scaled, X_test_scaled, scaler
-
 # Fonction principale de preprocessing
 def preprocess(df):
     dataset, _ = generate_dataset(df)
@@ -155,15 +147,11 @@ def preprocess(df):
     y_train = dataset[dataset['train'] == 1]['anomaly']
     y_test = dataset[dataset['train'] == 0]['anomaly']
 
-    X_train_scaled, X_test_scaled, _ = scale(X_train, X_test)
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled  = scaler.transform(X_test)
 
     X_train = pd.DataFrame(X_train_scaled, columns = X_train.columns)
     X_test = pd.DataFrame(X_test_scaled, columns = X_test.columns)
 
     return X_train, X_test, y_train, y_test
-
-def gen_data_scaled(df: pd.DataFrame, scaler) :
-    df_featured = generate_dataset(df)
-    df_scaled = scaler.transform(df_featured)
-
-    return df_scaled
