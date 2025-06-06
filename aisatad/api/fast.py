@@ -39,3 +39,4 @@ def predict(dico):
     # result = app.state.model.predict(X_pred_preprocessed)
 
     # return {"fare": float(result[0][0])}
+
