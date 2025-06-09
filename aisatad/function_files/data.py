@@ -45,5 +45,4 @@ def get_data_with_cache(
 
     df = pd.read_csv(cache_path, parse_dates=["timestamp"])
 
-
     return df
