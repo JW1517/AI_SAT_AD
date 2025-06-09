@@ -44,6 +44,7 @@ def diff2_var(array):
 
 # Fonctions de feature engineering sur des DataFrames
 def duration(df):
+    df["timestamp"] = pd.to_datetime(df["timestamp"])    # juan 0609
     t1 = pd.Timestamp(df.head(1).timestamp.values[0])
     t2 = pd.Timestamp(df.tail(1).timestamp.values[0])
     return (t2 - t1).seconds
@@ -158,9 +159,8 @@ def preprocess(df):
     return X_train, X_test, y_train, y_test, scaler
 
 
-def api_preprocess_pipeline(df, fitted_scaler):
+def api_preprocess(df, fitted_scaler):
     dataset, _ = generate_dataset(df)
-
     X = dataset.iloc[:, 5:]
 
     X_scaled = fitted_scaler.transform(X)
