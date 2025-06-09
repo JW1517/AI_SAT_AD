@@ -14,7 +14,6 @@ from aisatad.function_files.model import model_stacking
 #scaler
 from sklearn.preprocessing import StandardScaler
 
-
 # Metrics
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 
@@ -32,8 +31,6 @@ df = get_data_with_cache(cache_path=data_bucket_cache_path)
 X_train, X_test, y_train, y_test = preprocess(df)
 
 print("✅ preprocess() done \n")
-
-
 
 # modeliser and score
 df_results_model, df_results_y_pred,df_results_metrics,df_results_stacking = model_stacking(X_train, X_test, y_train, y_test)
