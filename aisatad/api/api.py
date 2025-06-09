@@ -21,12 +21,5 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 #import for FastAPI
 from fastapi import FastAPI
 
-
-
-
-
-
-
 # a fast api
 app = FastAPI()
-
