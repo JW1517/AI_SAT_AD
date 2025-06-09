@@ -18,6 +18,7 @@ MODEL_TARGET=os.environ.get("MODEL_TARGET")
 LOCAL_DATA_PATH = os.path.join(os.path.expanduser('~'), "code", "JW1517", "AI_SAT_AD")
 LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), "code", "JW1517", "AI_SAT_AD", "training_outputs")
 
+
 # COLUMN_NAMES_RAW = ['fare_amount','pickup_datetime', 'pickup_longitude', 'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'passenger_count']
 
 # DTYPES_RAW = {
