@@ -183,7 +183,9 @@ def model_stacking(X_train, X_test, y_train, y_test):
             "mdl_stack" :mdl_stacking
     }
 
-    results = []
+    results_y_pred = []
+    results_metrics =[]
+    results_model = []
     #for loop iterate model to get scores
     for model_nm, model_t in model_lists.items():
 
@@ -205,9 +207,8 @@ def model_stacking(X_train, X_test, y_train, y_test):
         #print les metrics
         print(f" results for model {model_nm}:  [accuracy: {accuracy:.3f}, precision: {precision:.3f}, recall: {recall:.3f}, f1 : {f1:.3f} - roc : {roc:.3f}, elapsed_time: {cal_time:.3f}]")
         # save results dans une list
-        results.append({
+        results_metrics.append({
             "model_nm": model_nm,
-            "y_pred": y_pred,
             "accuracy": accuracy,
             "precision":precision,
             "recall":recall,
@@ -215,12 +216,23 @@ def model_stacking(X_train, X_test, y_train, y_test):
             "roc":roc,
             "elapsed_time": cal_time
             })
+        results_y_pred.append({
+            "y_pred": y_pred,
+            })
+        results_model.append({
+            "model": model_t
+        }
+
+        )
 
 
     #transformer en pd
-    df_results_stacking = pd.DataFrame(results)
+    df_results_y_pred = pd.DataFrame(results_y_pred)
+    df_results_metrics = pd.DataFrame(results_metrics)
+    df_results_stacking= pd.concat([df_results_metrics, df_results_y_pred], axis=1)
+    df_results_model = pd.DataFrame(results_model)
 
-    #plot le ROC
-    plot_roc_curves_model_staking(model_lists, X_test, y_test)
+    # #plot le ROC
+    # plot_roc_curves_model_staking(model_lists, X_test, y_test)
 
-    return df_results_stacking
+    return df_results_model, df_results_y_pred,df_results_metrics,df_results_stacking
