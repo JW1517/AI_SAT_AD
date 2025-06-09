@@ -158,7 +158,7 @@ def preprocess(df):
     return X_train, X_test, y_train, y_test, scaler
 
 
-def api_preprocess_pipeline(df, fitted_scaler):
+def api_preprocess(df, fitted_scaler):
     dataset, _ = generate_dataset(df)
 
     X = dataset.iloc[:, 5:]
