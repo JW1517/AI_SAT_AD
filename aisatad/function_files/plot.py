@@ -7,7 +7,7 @@ def plot_seg(df_raw, list_seg):
         plt.scatter(df_filtered["timestamp"], df_filtered["value"])
         plt.title(f"Segment {segment} - Anomaly {df_filtered['anomaly'].iloc[0]} - Channel {df_filtered['channel'].iloc[0]} - Sampling {df_filtered['sampling'].iloc[0]}")
         plt.tight_layout()
-        print(plt.show())
+        plt.show()
 
 # ajouter un foncton avec ax dans le plot_seg: 20250605
 def plot_seg_ax(ax, df_raw, segment):
@@ -16,6 +16,15 @@ def plot_seg_ax(ax, df_raw, segment):
     ax.set_title(f"Segment {segment}\nAnomaly {df_filtered['anomaly'].iloc[0]} | Channel {df_filtered['channel'].iloc[0]}")
     ax.set_xlabel("Timestamp")
     ax.set_ylabel("Value")
+
+#streamlit sans étiquette "anomaly"
+def plot_seg_ax_st(ax, df_raw, segment):
+    df_filtered = df_raw[df_raw["segment"] == segment]
+    ax.scatter(df_filtered["timestamp"], df_filtered["value"])
+    ax.set_title(f"Segment {segment}\n | Channel {df_filtered['channel'].iloc[0]}")
+    ax.set_xlabel("Timestamp")
+    ax.set_ylabel("Value")
+
 
 # pour plot le ROC
 from sklearn.metrics import roc_curve, auc
