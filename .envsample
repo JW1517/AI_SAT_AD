@@ -15,3 +15,7 @@ BUCKET_DATASET=raw_data
 
 # Compute Engine
 INSTANCE=ai-sat-ad
+
+GAR_IMAGE=aisatad_img
+
+GOOGLE_APPLICATION_CREDENTIALS= #A REMPLIR

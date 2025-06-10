@@ -1,7 +1,6 @@
-FROM python:3.12.9-buster
+FROM python:3.12-slim-bookworm
 
-
-COPY AI_SAT_AD /aisatad
+COPY aisatad /aisatad
 COPY requirements.txt /requirements.txt
 
 RUN pip install --upgrade pip
