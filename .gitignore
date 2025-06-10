@@ -1,6 +1,7 @@
 raw_data/
 training_outputs/
 0.notebooks/
+training_outputs/
 .env
 
 # OS generated files #

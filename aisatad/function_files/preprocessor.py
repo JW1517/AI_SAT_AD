@@ -159,6 +159,7 @@ def preprocess(df):
 
 
 def api_preprocess(df, fitted_scaler):
+    df['timestamp'] = pd.to_datetime(df['timestamp'])
     dataset, _ = generate_dataset(df)
     X = dataset.iloc[:, 5:]
 

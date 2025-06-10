@@ -168,6 +168,7 @@ uvicorn         # web server
 httpx           # HTTP client
 pytest-asyncio  # asynchronous I/O support for pytest
 
-
 # streamlit
 streamlit
+python-multipart # pour streamlit et local 
+
