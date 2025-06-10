@@ -8,21 +8,19 @@ from pathlib import Path
 from aisatad.params import *
 
 
-def get_data_with_cache(
-        cache_path:Path,
-    ) -> pd.DataFrame:
+def get_data_with_cache():
 
     # print(Fore.MAGENTA + "\n ⭐️ Use case: preprocess" + Style.RESET_ALL)
 
     # query to download data
 
-
-
     """
     Retrieve `bucket` data from storage, or from `cache_path` if the file exists
     Store at `cache_path` if retrieved from storage for future use
     """
-
+    # CHANGED TO SIMPLIFIED GET DATA WITHOUT FUNCTION ARGUMENTS REQUIRED
+    
+    cache_path = Path(LOCAL_DATA_PATH).joinpath("raw_data", f"{BUCKET_DATASET}.csv")
 
     if cache_path.is_file():
         print(Fore.BLUE + "\nLoad data from local CSV..." + Style.RESET_ALL)
