@@ -147,15 +147,16 @@ def model_stacking(X_train, X_test, y_train, y_test):
                                 )
     #supervised model à stacking: XGBClassifier
     xgbc = XGBClassifier(
-            colsample_bytree=0.8,
-            eval_metric='logloss',
-            gamma=0.3,
-            learning_rate=0.2,
-            max_depth=5,
-            min_child_weight=1,
-            n_estimators=50,
-            #scale_pos_weight=(y_train.value_counts()[0] / y_train.value_counts()[1]),
-            tree_method='hist'
+        colsample_bytree=0.9720296698433066,
+        gamma=0.0788536227370118,
+        learning_rate=0.05594937721224293,
+        max_depth=9,
+        min_child_weight=1,
+        n_estimators=600,
+        use_label_encoder=False,
+        eval_metric='auc',
+        scale_pos_weight=(y_train.value_counts()[0] / y_train.value_counts()[1]),
+        tree_method='hist'
         )
 
     """
