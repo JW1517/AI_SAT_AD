@@ -44,7 +44,6 @@ def diff2_var(array):
 
 # Fonctions de feature engineering sur des DataFrames
 def duration(df):
-    df["timestamp"] = pd.to_datetime(df["timestamp"])    # juan 0609
     t1 = pd.Timestamp(df.head(1).timestamp.values[0])
     t2 = pd.Timestamp(df.tail(1).timestamp.values[0])
     return (t2 - t1).seconds

@@ -1,4 +1,5 @@
 raw_data/
+training_outputs/
 0.notebooks/
 .env
 
@@ -22,3 +23,5 @@ __pycache__
 mlruns
 # IDE #
 *.vscode
+#juan test catch22
+Miniconda3-latest-MacOSX-arm64.sh

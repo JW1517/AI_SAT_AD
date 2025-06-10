@@ -15,3 +15,6 @@ BUCKET_DATASET=raw_data
 
 # Compute Engine
 INSTANCE=ai-sat-ad
+
+# docker
+GAR_IMAGE=aisatadimg
