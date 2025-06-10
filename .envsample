@@ -1,7 +1,6 @@
+# Target (Local or GCS)
 MODEL_TARGET=gcs
 
-
-## GCP Project
 # Your personal GCP project for this bootcamp
 GCP_PROJECT=aisatad
 GCP_REGION=europe-west1
@@ -16,9 +15,8 @@ BUCKET_DATASET=raw_data
 # Compute Engine
 INSTANCE=ai-sat-ad
 
-
-# docker
+# Docker
 GAR_IMAGE=aisatad_img
-
+DOCKER_IMAGE_NAME="aisatad-img"
+DOCKER_REPO_NAME="artefact-aisatad-repo"
 GOOGLE_APPLICATION_CREDENTIALS= #A REMPLIR
-
