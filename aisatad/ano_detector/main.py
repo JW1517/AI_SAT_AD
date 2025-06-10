@@ -25,8 +25,8 @@ import os
 
 #load raw_data.csv
 
-data_bucket_cache_path = Path(LOCAL_DATA_PATH).joinpath("raw_data", f"{BUCKET_DATASET}.csv")
-df = get_data_with_cache(cache_path=data_bucket_cache_path)
+#data_bucket_cache_path = Path(LOCAL_DATA_PATH).joinpath("raw_data", f"{BUCKET_DATASET}.csv")
+df = get_data_with_cache()
 
 # preprocess
 X_train, X_test, y_train, y_test, scaler = preprocess(df)

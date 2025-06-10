@@ -8,7 +8,7 @@ from pathlib import Path
 from aisatad.params import *
 
 
-def get_data_with_cache(cache_path: Path,
+def get_data_with_cache(cache_path: Path=Path(LOCAL_DATA_PATH).joinpath("raw_data", f"{BUCKET_DATASET}.csv"),
                         storage_filename: str = "raw_data.csv") -> pd.DataFrame:
 
 
