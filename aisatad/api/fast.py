@@ -18,10 +18,11 @@ app.state.scaler = load_scaler()
 async def predict(json: dict) :
 
     df = pd.DataFrame(json)
-
     X_scaled = api_preprocess(df, app.state.scaler)
 
-    #y_pred = app.state.model.predict(X_scaled)
 
-    return {"anomaly": 0}
+    y_pred = app.state.model.predict(X_scaled)
 
+
+    #return{"anomaly": y_pred.tolist()}
+    return dict(zip(df["segment"].unique().tolist(), y_pred.tolist()))

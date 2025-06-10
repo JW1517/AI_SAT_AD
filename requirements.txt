@@ -169,6 +169,5 @@ httpx           # HTTP client
 pytest-asyncio  # asynchronous I/O support for pytest
 
 # streamlit
-streamlit
-python-multipart # pour streamlit et local 
-
+streamlit == 1.45.1
+python-multipart # pour streamlit et local
