@@ -3,6 +3,7 @@ training_outputs/
 0.notebooks/
 training_outputs/
 .env
+build/
 
 # OS generated files #
 ######################
@@ -24,4 +25,3 @@ __pycache__
 mlruns
 # IDE #
 *.vscode
-
