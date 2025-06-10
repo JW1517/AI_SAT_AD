@@ -137,6 +137,7 @@ def generate_dataset(source_df):
     full_path = f"{LOCAL_DATA_PATH}/{target_name}.csv"
     dataset.to_csv(full_path, index=False)
 
+
     return dataset, full_path
 
 # Fonction principale de preprocessing
@@ -160,6 +161,7 @@ def preprocess(df):
 
 def api_preprocess(df, fitted_scaler):
     df['timestamp'] = pd.to_datetime(df['timestamp'])
+    print(df["segment"].unique())
     dataset, _ = generate_dataset(df)
     X = dataset.iloc[:, 5:]
 
