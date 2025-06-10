@@ -16,6 +16,9 @@ BUCKET_DATASET=raw_data
 # Compute Engine
 INSTANCE=ai-sat-ad
 
+
+# docker
 GAR_IMAGE=aisatad_img
 
 GOOGLE_APPLICATION_CREDENTIALS= #A REMPLIR
+

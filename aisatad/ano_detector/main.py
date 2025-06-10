@@ -18,17 +18,19 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 
 #save model and results
-from aisatad.function_files.registry import save_results,save_model,load_model
+from aisatad.function_files.registry import save_results,save_model,load_model,save_scaler,load_scaler
+import os
 
 
 
 #load raw_data.csv
 
-data_bucket_cache_path = Path(LOCAL_DATA_PATH).joinpath("raw_data", f"{BUCKET_DATASET}.csv")
-df = get_data_with_cache(cache_path=data_bucket_cache_path)
+#data_bucket_cache_path = Path(LOCAL_DATA_PATH).joinpath("raw_data", f"{BUCKET_DATASET}.csv")
+df = get_data_with_cache()
 
 # preprocess
-X_train, X_test, y_train, y_test = preprocess(df)
+X_train, X_test, y_train, y_test, scaler = preprocess(df)
+save_scaler(scaler)
 
 print("✅ preprocess() done \n")
 
@@ -51,6 +53,8 @@ save_results(params=params, metrics=metrics)
 save_model(model=df_results_model.iloc[-1][0])
 
 model = load_model()
+
+scaler = load_scaler()
 
 
 # print("✅ train() done \n")

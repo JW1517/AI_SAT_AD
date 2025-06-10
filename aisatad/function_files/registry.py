@@ -23,31 +23,34 @@ def save_results(params: dict, metrics: dict) -> None:
     "{LOCAL_REGISTRY_PATH}/metrics/{current_timestamp}.pickle"
     - (unit 03 only) if MODEL_TARGET='mlflow', also persist them on MLflow
     """
-    # if MODEL_TARGET == "mlflow":
-    #     if params is not None:
-    #         mlflow.log_params(params)
-    #     if metrics is not None:
-    #         mlflow.log_metrics(metrics)
-    #     print("✅ Results saved on MLflow")
 
     timestamp = time.strftime("%Y%m%d-%H%M%S")
 
     # Save params locally
     if params is not None:
-        params_path = os.path.join(LOCAL_REGISTRY_PATH, "params", timestamp + ".pickle")
+        params_dir= os.path.join(LOCAL_REGISTRY_PATH, "params")
+        params_path = os.path.join(params_dir, timestamp + ".pickle")
+        os.makedirs(params_dir, exist_ok=True)
+        # if os.path.isdir(params_path):
+        #     os.rmdir(params_path)
         with open(params_path, "wb") as file:
             pickle.dump(params, file)
 
     # Save metrics locally
     if metrics is not None:
-        metrics_path = os.path.join(LOCAL_REGISTRY_PATH, "metrics", timestamp + ".pickle")
+        metrics_dir = os.path.join(LOCAL_REGISTRY_PATH, "metrics")
+        metrics_path = os.path.join(metrics_dir, timestamp + ".pickle")
+
+        os.makedirs(metrics_dir, exist_ok=True)
+        # if os.path.isdir(metrics_path):
+        #     os.rmdir(metrics_path)
         with open(metrics_path, "wb") as file:
             pickle.dump(metrics, file)
 
-    print("✅ Results saved locally")
+    print("✅ Results params ans metrics saved locally")
 
 
-def save_model(model: keras.Model = None) -> None:
+def save_model(model = None) -> None:
     """
     Persist trained model locally on the hard drive at f"{LOCAL_REGISTRY_PATH}/models/{timestamp}.h5"
     - if MODEL_TARGET='gcs', also persist it in your bucket on GCS at "models/{timestamp}.h5" --> unit 02 only
@@ -57,7 +60,10 @@ def save_model(model: keras.Model = None) -> None:
     timestamp = time.strftime("%Y%m%d-%H%M%S")
 
     # Save model locally
-    model_path = os.path.join(LOCAL_REGISTRY_PATH, "models", f"{timestamp}.h5")
+    model_dir = os.path.join(LOCAL_REGISTRY_PATH, "models")
+    model_path = os.path.join(model_dir, f"{timestamp}.h5")
+
+    os.makedirs(model_dir, exist_ok=True)
     #model.save(model_path)
 
         # Export Pipeline as pickle file
@@ -79,21 +85,12 @@ def save_model(model: keras.Model = None) -> None:
 
         return None
 
-    # if MODEL_TARGET == "mlflow":
-    #     mlflow.tensorflow.log_model(
-    #         model=model,
-    #         artifact_path="model",
-    #         registered_model_name=MLFLOW_MODEL_NAME
-    #     )
 
-    #     print("✅ Model saved to MLflow")
-
-        # return None
 
     return None
 
 # load_model
-def load_model(stage="Production") -> keras.Model:
+def load_model(stage="Production"):
     """
     Return a saved model:
     - locally (latest one in alphabetical order)
@@ -130,26 +127,22 @@ def load_model(stage="Production") -> keras.Model:
 
         client = storage.Client()
         blobs = list(client.get_bucket(BUCKET_NAME).list_blobs(prefix="models/"))
-        print(blobs)
+        #print(blobs)
 
         try:
             latest_blob = max(blobs, key=lambda x: x.updated)
             print(latest_blob)
             latest_model_path_to_save = os.path.join(LOCAL_REGISTRY_PATH,latest_blob.name)
-            print(latest_model_path_to_save)
-            #debuge
-            # with open(latest_model_path_to_save, "wb") as file:
-            #     pickle.dump(latest_blob.download_to_filename(file))
-            #  Créer les dossiers si n'exist pas
-            #os.makedirs(os.path.dirname(latest_model_path_to_save), exist_ok=True)
-
+            os.makedirs(os.path.dirname(latest_model_path_to_save), exist_ok=True)
+            #print(latest_model_path_to_save)
 
             latest_blob.download_to_filename(latest_model_path_to_save)
             print("ok")
             latest_model = pickle.load(open(latest_model_path_to_save,"rb"))
-
+            print(f"⬇️ Downloading: {latest_blob.name}")
 
             print("✅ Latest model downloaded from cloud storage")
+
 
             return latest_model
         except:
@@ -157,6 +150,8 @@ def load_model(stage="Production") -> keras.Model:
 
             return None
 
+
+# Arsène, Yves, 20250609
 
 def save_scaler(scaler) -> None:
     """
@@ -255,80 +250,3 @@ def load_scaler() -> object:
             return None
 
     return None
-
-    # elif MODEL_TARGET == "mlflow":
-    #     print(Fore.BLUE + f"\nLoad [{stage}] model from MLflow..." + Style.RESET_ALL)
-
-    #     # Load model from MLflow
-    #     model = None
-    #     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-    #     client = MlflowClient()
-
-    #     try:
-    #         model_versions = client.get_latest_versions(name=MLFLOW_MODEL_NAME, stages=[stage])
-    #         model_uri = model_versions[0].source
-
-    #         assert model_uri is not None
-    #     except:
-    #         print(f"\n❌ No model found with name {MLFLOW_MODEL_NAME} in stage {stage}")
-
-    #         return None
-
-    #     model = mlflow.tensorflow.load_model(model_uri=model_uri)
-
-    #     print("✅ Model loaded from MLflow")
-    #     return model
-    # else:
-    #     return None
-
-
-
-# def mlflow_transition_model(current_stage: str, new_stage: str) -> None:
-#     """
-#     Transition the latest model from the `current_stage` to the
-#     `new_stage` and archive the existing model in `new_stage`
-#     """
-#     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-
-#     client = MlflowClient()
-
-#     version = client.get_latest_versions(name=MLFLOW_MODEL_NAME, stages=[current_stage])
-
-#     if not version:
-#         print(f"\n❌ No model found with name {MLFLOW_MODEL_NAME} in stage {current_stage}")
-#         return None
-
-#     client.transition_model_version_stage(
-#         name=MLFLOW_MODEL_NAME,
-#         version=version[0].version,
-#         stage=new_stage,
-#         archive_existing_versions=True
-#     )
-
-#     print(f"✅ Model {MLFLOW_MODEL_NAME} (version {version[0].version}) transitioned from {current_stage} to {new_stage}")
-
-#     return None
-
-
-# def mlflow_run(func):
-#     """
-#     Generic function to log params and results to MLflow along with TensorFlow auto-logging
-
-#     Args:
-#         - func (function): Function you want to run within the MLflow run
-#         - params (dict, optional): Params to add to the run in MLflow. Defaults to None.
-#         - context (str, optional): Param describing the context of the run. Defaults to "Train".
-#     """
-#     def wrapper(*args, **kwargs):
-#         mlflow.end_run()
-#         mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-#         mlflow.set_experiment(experiment_name=MLFLOW_EXPERIMENT)
-
-#         with mlflow.start_run():
-#             mlflow.tensorflow.autolog()
-#             results = func(*args, **kwargs)
-
-#         print("✅ mlflow_run auto-log done")
-
-#         return results
-#     return wrapper
