@@ -24,5 +24,3 @@ async def predict(json: dict) :
     #y_pred = app.state.model.predict(X_scaled)
 
     return {"anomaly": 0}
-
-

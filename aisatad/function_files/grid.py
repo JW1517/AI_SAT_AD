@@ -4,6 +4,17 @@ from sklearn.model_selection import RandomizedSearchCV
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 
+from tensorflow.keras import Sequential, Input, layers
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.metrics import Precision, Recall
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix
+from sklearn.utils import class_weight
+
+
 def ada_boost_GC(X_train, y_train, X_test, y_test):
     base_estimator = DecisionTreeClassifier(class_weight='balanced')
 
@@ -98,3 +109,70 @@ def xgboost_GC(X_train, y_train, X_test, y_test):
         f"f1: {f1:.3f}, roc: {roc:.3f}",
         best_model
     )
+
+
+def grid_search_RNN(X_train, y_train):
+
+    param_grid = {
+        'units_1': [32, 64],
+        'units_2': [16, 32],
+        'dense_units': [32, 64],
+        'dropout_rate': [0.2, 0.3, 0.5],
+        'learning_rate': [1e-3, 1e-4],
+        'epochs': [30, 50, 100],
+        'batch_size': [16, 32]
+    }
+
+    best_val_acc = 0
+    best_params = None
+    best_model = None
+
+    for units_1 in param_grid['units_1']:
+        for units_2 in param_grid['units_2']:
+            for dense_units in param_grid['dense_units']:
+                for dropout_rate in param_grid['dropout_rate']:
+                    for learning_rate in param_grid['learning_rate']:
+                        for epochs in param_grid['epochs']:
+                            for batch_size in param_grid['batch_size']:
+                                params = {
+                                    'units_1': units_1,
+                                    'units_2': units_2,
+                                    'dense_units': dense_units,
+                                    'dropout_rate': dropout_rate,
+                                    'learning_rate': learning_rate,
+                                    'epochs': epochs,
+                                    'batch_size': batch_size
+                                }
+                                print(f"Testing params: {params}")
+
+                                model = Sequential()
+                                model.add(Input(shape=(X_train.shape[1], X_train.shape[2])))
+                                model.add(layers.Masking(mask_value=-10.0))
+                                model.add(layers.Bidirectional(layers.LSTM(units=units_1, activation='tanh', return_sequences=True)))
+                                model.add(layers.LSTM(units=units_2, activation='tanh', return_sequences=False))
+                                model.add(layers.Dense(dense_units, activation='relu'))
+                                model.add(layers.Dropout(dropout_rate))
+                                model.add(layers.Dense(1, activation='sigmoid'))
+
+                                optimizer = Adam(learning_rate=learning_rate)
+                                model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+
+                                es = EarlyStopping(patience=5, restore_best_weights=True, verbose=0)
+
+                                history = model.fit(X_train, y_train,
+                                                    epochs=epochs,
+                                                    batch_size=batch_size,
+                                                    validation_split=0.2,
+                                                    callbacks=[es],
+                                                    verbose=0)
+
+                                val_acc = max(history.history['val_accuracy'])
+                                print(f"Validation accuracy: {val_acc:.4f}")
+
+                                if val_acc > best_val_acc:
+                                    best_val_acc = val_acc
+                                    best_params = params
+                                    best_model = model
+
+    print(f"Best validation accuracy: {best_val_acc:.4f} with params: {best_params}")
+    return best_model, best_params, best_val_ac
