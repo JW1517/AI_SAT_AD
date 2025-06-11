@@ -4,34 +4,33 @@ import requests
 import pandas as pd
 import io
 import ast
-from aisatad.function_files.plot import plot_seg_ax,plot_seg_ax_st
+#from aisatad.function_files.plot import plot_seg_ax,plot_seg_ax_st
 import matplotlib.pyplot as plt
 
 
 '''
 # aisatad front
 '''
+#streamlit sans étiquette "anomaly"
+def plot_seg_ax_st(ax, df_raw, segment):
+    df_filtered = df_raw[df_raw["segment"] == segment]
+    ax.scatter(df_filtered["timestamp"], df_filtered["value"])
+    ax.set_title(f"Segment {segment}\n | Channel {df_filtered['channel'].iloc[0]}")
+    ax.set_xlabel("Timestamp")
+    ax.set_ylabel("Value")
 
 
 st.title("Prédiction via FastAPI")
 
 uploaded_file = st.file_uploader("Uploader un fichier CSV", type=["csv"])
-base_url = "http://localhost:8000"
+base_url = "https://aisatad-img-204615645613.europe-west1.run.app/"
+
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)#,parse_dates=["timestamp"])
     st.write("Aperçu du CSV :", df.head())
 
-    # list_seg =df["segment"].unique().tolist()
-    # fig,ax = plt.subplots()
 
-    # for segment in list_seg[:2]:
-    #     df_filtered = df[df["segment"] == segment]
-    #     plt.figure(figsize=(15, 5))
-    #     ax.scatter(df_filtered["timestamp"], df_filtered["value"])
-    #     plt.title(f"Segment {segment} - Anomaly {df_filtered['anomaly'].iloc[0]} - Channel {df_filtered['channel'].iloc[0]} - Sampling {df_filtered['sampling'].iloc[0]}")
-    #     plt.tight_layout()
-    #     st.pyplot(fig)
 
     nb_seg_plot = 5  # choisi combient de segment tu veut plotter pour chaque capteur
 
