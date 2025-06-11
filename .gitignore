@@ -4,6 +4,7 @@ training_outputs/
 training_outputs/
 .env
 build/
+.env.yaml
 
 # OS generated files #
 ######################
