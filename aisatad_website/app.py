@@ -51,10 +51,6 @@ if uploaded_file is not None:
 
 
 
-
-
-
-
     # plt.locator_params(axis='x',bins =5)
     plt.tight_layout()
     st.pyplot(fig)
