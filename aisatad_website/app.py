@@ -34,7 +34,7 @@ if uploaded_file is not None:
     segments = df["segment"].unique()[:nb_seg_plot]
     for i, segment in enumerate(segments):
         plot_seg_ax_st(ax[i], df, segment)
-
+        
     plt.tight_layout()
     st.pyplot(fig)
 
