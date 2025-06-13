@@ -121,17 +121,18 @@ AI_SAT_AD/
 
 #### Dense Neural Network
 
-Dense(128, gelu) → BatchNorm → Dropout
-Dense(64, gelu) → BatchNorm → Dropout
-Dense(32, gelu) → BatchNorm → Dropout
-Dense(1, sigmoid)
+Input → Dense(128, activation='gelu') → BatchNorm → Dropout(0.3)
+      → Dense(64, activation='gelu') → BatchNorm → Dropout(0.3)
+      → Dense(32, activation='gelu') → BatchNorm → Dropout(0.3)
+      → Dense(1, activation='sigmoid')
 
 #### RNN (LSTM-based)
 
-Masking layer
-Bidirectional LSTM(64) → LSTM(32)
-Dense(64, relu) → Dropout
-Dense(1, sigmoid)
+Input → Masking(mask_value=-10.0)
+      → Bidirectional LSTM(64, activation='tanh', return_sequences=True)
+      → LSTM(32, activation='tanh')
+      → Dense(64, activation='relu') → Dropout(0.3)
+      → Dense(1, activation='sigmoid')
 
 ### Unsupervised Anomaly Detection
 
