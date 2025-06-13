@@ -3,8 +3,64 @@ import requests
 import pandas as pd
 import ast
 import altair as alt
+from PIL import Image
+import base64
 
-st.title("AI SAT AD")
+st.markdown("""
+    <div style="text-align: center;">
+        <h1 style="
+            font-size: 72px;
+            background: linear-gradient(to right, black, black, black, black, black, black);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 40px;
+            transform: translateX(15px);
+        ">
+            AI SAT AD
+        </h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# Load image and encode to base64
+with open("/Users/arsenegery/code/JW1517/AI_SAT_AD/image.png", "rb") as image_file:
+    encoded_image = base64.b64encode(image_file.read()).decode()
+
+# Embed image
+st.markdown(
+    f"""
+    <div style="text-align: center;">
+        <img src="data:image/png;base64,{encoded_image}" width="400">
+        <div style="font-size: 20px; color: grey; margin-top: 8px;"></div>
+    </div>
+    """,
+    unsafe_allow_html=True)
+
+# Add space between image and video
+st.markdown("""
+    <div style="margin-bottom: 70px;"></div>
+    """, unsafe_allow_html=True)
+
+
+video_file = open('/Users/arsenegery/Downloads/videoplayback.mp4', 'rb')
+video_bytes = video_file.read()
+encoded_video = base64.b64encode(video_bytes).decode()
+
+# Embed video with autoplay, muted (required for autoplay to work in browsers), loop, no controls
+st.markdown(
+    f"""
+    <div style="text-align: center;">
+        <video width="640" autoplay muted loop playsinline>
+            <source src="data:video/mp4;base64,{encoded_video}" type="video/mp4">
+        </video>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
 
 uploaded_file = st.file_uploader("Uploader des mesures (format CSV)", type=["csv"])
 
