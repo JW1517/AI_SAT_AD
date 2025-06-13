@@ -2,10 +2,6 @@
 
 > **Industrial-grade Machine Learning Pipeline for Anomaly Detection in Satellite Telemetry**
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png" width="100">
-</p>
-
 ---
 
 ## 📖 Overview
