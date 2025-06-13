@@ -3,7 +3,7 @@
 > **Industrial-grade Machine Learning Pipeline for Anomaly Detection in Satellite Telemetry**
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png" width="400">
+  <img src="https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png" width="100">
 </p>
 
 ---
@@ -33,18 +33,35 @@ The system combines:
 
 ## 🗂️ Project Structure
 
+## 🗂️ Project Structure
+
+```plaintext
 AI_SAT_AD/
 ├── aisatad/
-│ ├── function_files/
-│ │ ├── data.py # Data fetching & caching
-│ │ ├── preprocessor.py # Feature engineering pipeline
-│ │ ├── model.py # Model training functions
-│ │ ├── plot.py # Visualisation utilities
-│ ├── params.py # Global project parameters
-├── training_outputs/ # Registry of saved models, scalers, metrics
-├── app.py # Streamlit app (production frontend)
-├── README.md # Project documentation
-└── requirements.txt # Dependencies
+│   ├── __init__.py
+│   ├── __pycache__/
+│   │   ├── __init__.cpython-312.pyc
+│   │   └── params.cpython-312.pyc
+│   ├── ano_detector/
+│   │   ├── __init__.py
+│   │   └── main.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── __pycache__/
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── fast.cpython-312.pyc
+│   │   └── fast.py
+│   ├── function_files/
+│   │   ├── data.py                 # Data fetching & caching
+│   │   ├── preprocessor.py         # Feature engineering pipeline
+│   │   ├── model.py                # Model training functions
+│   │   ├── plot.py                 # Visualisation utilities
+│   ├── params.py                   # Global project parameters
+├── training_outputs/               # Registry of saved models, scalers, metrics
+├── app.py                          # Streamlit app (production frontend)
+├── README.md                       # Project documentation
+└── requirements.txt                # Dependencies
+```
 
 ---
 
