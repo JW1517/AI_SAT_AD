@@ -155,11 +155,13 @@ Dense(1, sigmoid)
 - **Scaler saving:** `save_scaler()`
 - Registry maintained under:
 
+```plaintext
 training_outputs/
 ├── models/
 ├── scalers/
 ├── metrics/
 └── params/
+```
 
 - Models and scalers can be uploaded to **GCS** for cloud-based production.
 
