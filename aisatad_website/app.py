@@ -25,7 +25,7 @@ st.markdown("""
 
 
 # Load image and encode to base64
-with open("https://github.com/JW1517/AI_SAT_AD/blob/master/image.png", "rb") as image_file:
+with open("https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png", "rb") as image_file:
     encoded_image = base64.b64encode(image_file.read()).decode()
 
 # Embed image
@@ -44,21 +44,21 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
-video_file = open('https://github.com/JW1517/AI_SAT_AD/blob/master/videoplayback.mp4', 'rb')
-video_bytes = video_file.read()
-encoded_video = base64.b64encode(video_bytes).decode()
+# video_file = open('https://github.com/JW1517/AI_SAT_AD/blob/master/videoplayback.mp4', 'rb')
+# video_bytes = video_file.read()
+# encoded_video = base64.b64encode(video_bytes).decode()
 
-# Embed video with autoplay, muted (required for autoplay to work in browsers), loop, no controls
-st.markdown(
-    f"""
-    <div style="text-align: center;">
-        <video width="640" autoplay muted loop playsinline>
-            <source src="data:video/mp4;base64,{encoded_video}" type="video/mp4">
-        </video>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+# # Embed video with autoplay, muted (required for autoplay to work in browsers), loop, no controls
+# st.markdown(
+#     f"""
+#     <div style="text-align: center;">
+#         <video width="640" autoplay muted loop playsinline>
+#             <source src="data:video/mp4;base64,{encoded_video}" type="video/mp4">
+#         </video>
+#     </div>
+#     """,
+#     unsafe_allow_html=True
+# )
 
 
 
