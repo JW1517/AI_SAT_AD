@@ -14,7 +14,7 @@ The system combines:
 - Both **traditional machine learning** and **deep learning** models.
 - A **Streamlit-based app** for seamless interaction and industrial deployment.
 - Fully automated **model versioning** and **scaler management**, both local and cloud-based.
-- Integration with **Google Cloud Platform** (GCS).
+- Integration with **Google Cloud Platform** (GCS - Artifact Registry - Cloud Run).
 
 ---
 
