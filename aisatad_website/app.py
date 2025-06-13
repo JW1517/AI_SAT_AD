@@ -25,7 +25,7 @@ st.markdown("""
 
 
 # Load image and encode to base64
-with open("/Users/arsenegery/code/JW1517/AI_SAT_AD/image.png", "rb") as image_file:
+with open("https://github.com/JW1517/AI_SAT_AD/blob/master/image.png", "rb") as image_file:
     encoded_image = base64.b64encode(image_file.read()).decode()
 
 # Embed image
@@ -44,7 +44,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
-video_file = open('/Users/arsenegery/Downloads/videoplayback.mp4', 'rb')
+video_file = open('https://github.com/JW1517/AI_SAT_AD/blob/master/videoplayback.mp4', 'rb')
 video_bytes = video_file.read()
 encoded_video = base64.b64encode(video_bytes).decode()
 
