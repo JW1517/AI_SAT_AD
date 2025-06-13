@@ -182,27 +182,35 @@ pip install -r requirements.txt
 ## 🚀 Usage Guide
 
 🧹 Preprocessing
+```bash
 from aisatad.function_files.data import get_data_with_cache
 df = get_data_with_cache()
 
 from aisatad.function_files.preprocessor import preprocess
 X_train, X_test, y_train, y_test, scaler = preprocess(df)
+```
 
-🏋️‍♂️ Model Training
+🏋️‍♂️ Model Training Example
 
+```bash
 from aisatad.function_files.model import logistic_regression
 logistic_regression(X_train, X_test, y_train, y_test)
+```
 
 🧠 Deep Learning Example
 
+```bash
 from aisatad.function_files.model import Dense_Neural_model
 Dense_Neural_model(X_train, X_test, y_train, y_test)
+```
 
 💾 Saving Artifacts
 
+```bash
 from aisatad.function_files.registry import save_model, save_scaler
 save_model(model)
 save_scaler(scaler)
+```
 
 ### 👥 **Collaborators**
 - [![Arsène Géry](https://img.shields.io/badge/GitHub-Arsène_Géry-blue?logo=github)](https://github.com/Arsene-Gery)  
