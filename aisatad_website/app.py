@@ -24,19 +24,28 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 
-# Load image and encode to base64
-with open("https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png", "rb") as image_file:
-    encoded_image = base64.b64encode(image_file.read()).decode()
+# # Load image and encode to base64
+# with open("https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png", "rb") as image_file:
+#     encoded_image = base64.b64encode(image_file.read()).decode()
 
-# Embed image
-st.markdown(
-    f"""
-    <div style="text-align: center;">
-        <img src="data:image/png;base64,{encoded_image}" width="400">
-        <div style="font-size: 20px; color: grey; margin-top: 8px;"></div>
-    </div>
-    """,
-    unsafe_allow_html=True)
+# # Embed image
+# st.markdown(
+#     f"""
+#     <div style="text-align: center;">
+#         <img src="data:image/png;base64,{encoded_image}" width="400">
+#         <div style="font-size: 20px; color: grey; margin-top: 8px;"></div>
+#     </div>
+#     """,
+#     unsafe_allow_html=True)
+
+st.image(
+    "https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png",
+    width=400, # Manually Adjust the width of the image as per requirement
+)
+
+
+
+
 
 # Add space between image and video
 st.markdown("""
