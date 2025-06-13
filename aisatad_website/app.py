@@ -38,11 +38,18 @@ st.markdown("""
 #     """,
 #     unsafe_allow_html=True)
 
-st.image(
-    "https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png",
-    width=400, # Manually Adjust the width of the image as per requirement
+# st.image(
+#     "https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png",
+#     width=400, # Manually Adjust the width of the image as per requirement
+# )
+st.markdown(
+    """
+    <div style="text-align: center;">
+        <img src="https://raw.githubusercontent.com/JW1517/AI_SAT_AD/refs/heads/master/image.png" width="400">
+    </div>
+    """,
+    unsafe_allow_html=True
 )
-
 
 
 
